@@ -11,6 +11,7 @@ import java.util.Collection;
 
 public interface ServerService {
     Server save(Server server);
+    Server ping(String ipAddress);
     Collection<Server> list(int limit);
     Server get(Long id);
     Server update(Server server);
