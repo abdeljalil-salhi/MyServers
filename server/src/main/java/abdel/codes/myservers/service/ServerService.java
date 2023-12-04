@@ -1,0 +1,18 @@
+package abdel.codes.myservers.service;
+
+import abdel.codes.myservers.model.Server;
+
+import java.util.Collection;
+
+/**
+ * @author Abdeljalil Salhi
+ * @version 1.0
+ */
+
+public interface ServerService {
+    Server save(Server server);
+    Collection<Server> list(int limit);
+    Server get(Long id);
+    Server update(Server server);
+    Boolean delete(Long id);
+}
