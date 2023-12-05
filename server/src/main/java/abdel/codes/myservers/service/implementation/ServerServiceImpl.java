@@ -7,13 +7,16 @@ import abdel.codes.myservers.service.ServerService;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Collection;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Random;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import static abdel.codes.myservers.enumuration.Status.SERVER_DOWN;
 import static abdel.codes.myservers.enumuration.Status.SERVER_UP;
@@ -60,11 +63,15 @@ public class ServerServiceImpl implements ServerService {
     @Override
     public Server get(Long id) {
         log.info("[#{}] Fetching...", id);
-        return serverRepository.findById(id).get();
+        Optional<Server> optionalServer = serverRepository.findById(id);
+
+        if (optionalServer.isPresent())
+            return optionalServer.get();
+        throw new NoSuchElementException("[!] Server not found #" + id);
     }
 
     @Override
-    public Server update(Server server) {
+    public Server update(@NotNull Server server) {
         log.info("[{}] Updating server '{}'", server.getIpAddress(), server.getName());
         return serverRepository.save(server);
     }
@@ -77,6 +84,10 @@ public class ServerServiceImpl implements ServerService {
     }
 
     private String setServerImage() {
-        return null;
+        String[] images = { "server1.png", "server2.png", "server3.png", "server4.png" };
+        return ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/server/assets/" + images[new Random().nextInt(4)])
+                .toUriString();
     }
 }
