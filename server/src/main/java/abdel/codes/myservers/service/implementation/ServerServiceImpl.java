@@ -12,10 +12,14 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import static abdel.codes.myservers.enumuration.Status.SERVER_DOWN;
 import static abdel.codes.myservers.enumuration.Status.SERVER_UP;
+
+import static java.lang.Boolean.TRUE;
+import static org.springframework.data.domain.PageRequest.of;
 
 /**
  * @author Abdeljalil Salhi
@@ -49,22 +53,27 @@ public class ServerServiceImpl implements ServerService {
 
     @Override
     public Collection<Server> list(int limit) {
-        return null;
+        log.info("[!] Fetching all servers...");
+        return serverRepository.findAll(of(0, limit)).toList();
     }
 
     @Override
     public Server get(Long id) {
-        return null;
+        log.info("[#{}] Fetching...", id);
+        return serverRepository.findById(id).get();
     }
 
     @Override
     public Server update(Server server) {
-        return null;
+        log.info("[{}] Updating server '{}'", server.getIpAddress(), server.getName());
+        return serverRepository.save(server);
     }
 
     @Override
     public Boolean delete(Long id) {
-        return null;
+        log.info("[#{}] Deleting...", id);
+        serverRepository.deleteById(id);
+        return TRUE;
     }
 
     private String setServerImage() {
