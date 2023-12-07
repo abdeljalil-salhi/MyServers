@@ -4,3 +4,7 @@ updates:
     directory: "/server"
     schedule:
       interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/client"
+    schedule:
+      interval: "daily"
