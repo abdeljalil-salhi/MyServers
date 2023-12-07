@@ -10,6 +10,21 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=${MYSQL_USER}
+      - PMA_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3308:80"
+    depends_on:
+      - mysql
+    restart: always
 
 volumes:
   mysql_data:
