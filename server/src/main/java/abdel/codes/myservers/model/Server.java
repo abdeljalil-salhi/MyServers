@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -29,22 +28,15 @@ public class Server {
     private Long id;
 
     @Column(unique = true)
-    @NotEmpty(message = "IP Address cannot be empty")
     private String ipAddress;
     
-    @NotEmpty(message = "Name cannot be empty")
     private String name;
     
-    @NotEmpty(message = "Memory cannot be empty")
     private String memory;
     
-    @NotEmpty(message = "CPU cannot be empty")
     private String type;
-    
-    @Column(unique = true)
-    @NotEmpty(message = "Image cannot be empty")
+
     private String image;
     
-    @NotEmpty(message = "Status cannot be empty")
     private Status status;
 }
