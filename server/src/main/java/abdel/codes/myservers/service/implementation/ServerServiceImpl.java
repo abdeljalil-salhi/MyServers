@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import static abdel.codes.myservers.enumuration.Status.SERVER_DOWN;
 import static abdel.codes.myservers.enumuration.Status.SERVER_UP;
@@ -47,7 +46,7 @@ public class ServerServiceImpl implements ServerService {
     @Override
     public Server ping(String ipAddress) throws IOException {
         log.info("[{}] Pinging...", ipAddress);
-        Server server = serverRepository.findByIpAdress(ipAddress);
+        Server server = serverRepository.findByIpAddress(ipAddress);
         InetAddress address = InetAddress.getByName(ipAddress);
         server.setStatus(address.isReachable(10000) ? SERVER_UP : SERVER_DOWN);
         serverRepository.save(server);
@@ -85,9 +84,6 @@ public class ServerServiceImpl implements ServerService {
 
     private String setServerImage() {
         String[] images = { "server1.png", "server2.png", "server3.png", "server4.png" };
-        return ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("/assets/" + images[new Random().nextInt(4)])
-                .toUriString();
+        return "/assets/" + images[new Random().nextInt(4)];
     }
 }

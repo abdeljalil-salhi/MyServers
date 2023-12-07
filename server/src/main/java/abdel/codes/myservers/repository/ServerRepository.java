@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface ServerRepository extends JpaRepository<Server, Long>{
-    Server findByIpAdress(String ipAdress);
+    Server findByIpAddress(String ipAddress);
 }
