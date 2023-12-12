@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Server } from '@prisma/client';
-
 import { randomInt } from 'crypto';
+import { PingResponse, promise } from 'ping';
 
 import { PrismaService } from './prisma.service';
 import { CreateServerDto } from '../dto/create-server.dto';
@@ -24,16 +24,22 @@ export class ServerService {
   }
 
   async pingServer(ipAddress: string): Promise<Server> {
-    const ping = true;
-    const server: Server = await this.prisma.server.updateMany({
-      where: {
-        ipAddress,
-      },
-      data: {
-        status: ping ? Status.SERVER_UP : Status.SERVER_DOWN,
-      },
-    })[0];
-    return server;
+    try {
+      // Send ICMP Echo Request to the specified IP address
+      const ping: PingResponse = await promise.probe(ipAddress);
+
+      const server: Server = await this.prisma.server.updateMany({
+        where: {
+          ipAddress,
+        },
+        data: {
+          status: ping.alive ? Status.SERVER_UP : Status.SERVER_DOWN,
+        },
+      })[0];
+      return server;
+    } catch (error) {
+      return null;
+    }
   }
 
   async saveServer(createServerDto: CreateServerDto): Promise<Server> {
