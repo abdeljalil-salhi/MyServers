@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
+    directory: "/server-nest"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
     directory: "/client"
     schedule:
       interval: "daily"
