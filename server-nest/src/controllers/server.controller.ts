@@ -80,6 +80,7 @@ export class ServerController {
     name: 'id',
     description: 'The server ID',
     type: 'number',
+    example: 1,
   })
   @ApiBadRequestResponse({
     status: 404,
@@ -148,6 +149,7 @@ export class ServerController {
     name: 'ipAddress',
     description: 'The server IP address',
     type: 'string',
+    example: '192.168.1.7',
   })
   @ApiBadRequestResponse({
     status: 404,
@@ -215,6 +217,17 @@ export class ServerController {
   @ApiBody({
     type: CreateServerDto,
     description: 'The server data',
+    examples: {
+      'Basic server': {
+        value: {
+          ipAddress: '192.168.1.17',
+          name: 'Windows 10',
+          memory: '8 GB',
+          type: 'Personal laptop',
+          status: 'SERVER_UP',
+        },
+      },
+    },
   })
   @ApiResponse({
     status: 201,
@@ -266,6 +279,7 @@ export class ServerController {
     name: 'id',
     description: 'The server ID',
     type: 'number',
+    example: 1,
   })
   @ApiResponse({
     status: 200,
