@@ -1,18 +1,26 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Learn more about this file in the docs: https://pris.ly/d/prisma-schema
 
+// Indicates that I want to generate Prisma Client,
+// a type-safe query builder for the database.
+// It is used to send queries to the database.
 generator client {
     provider = "prisma-client-js"
 }
 
+// Specifies the database connection.
+// The below configuration means that the database provider is PostgreSQL
+// and the database connection string is available in the
+// DATABASE_URL environment variable.
 datasource db {
-    provider = "mysql"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
+// Defines the data model Server.
+// The data model is used by Prisma to generate the Prisma Client.
 model Server {
     id        Int    @id @default(autoincrement())
-    ipAddress String
+    ipAddress String @unique
     name      String
     memory    String
     type      String
