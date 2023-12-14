@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, catchError, of, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { CustomResponse } from './interfaces/CustomResponse';
 import { AppState } from './interfaces/AppState';
-import { Observable, catchError, of, startWith } from 'rxjs';
 import { ServerService } from './services/server.service';
 import { DataState } from './enums/data-state.enum';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   title = '@myservers/client';
