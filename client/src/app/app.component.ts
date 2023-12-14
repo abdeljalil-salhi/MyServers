@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   title = '@myservers/client';
 
   appState$!: Observable<AppState<CustomResponse>>;
+  readonly DataState = DataState;
 
   constructor(private readonly serverService: ServerService) {}
 

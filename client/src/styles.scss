@@ -5,8 +5,17 @@ body {
   margin-top: 20px;
 }
 
-button, select {
+button,
+select {
   outline: none !important;
+}
+
+.table-responsive {
+  overflow-x: hidden;
+
+  @media (max-width: 597px) {
+    overflow-x: auto;
+  }
 }
 
 .card {
